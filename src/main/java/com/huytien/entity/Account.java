@@ -1,8 +1,10 @@
 package com.huytien.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Formula;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -25,7 +27,7 @@ public class Account {
     @Column(name = "first_name", length = 50, nullable = false, updatable = false)
     private String firstName;
 
-    @Column(name = "first_name", length = 50, nullable = false, updatable = false)
+    @Column(name = "last_name", length = 50, nullable = false, updatable = false)
     private String lastName;
 
     @Formula("concat(first_name, ' ', last_name)")
@@ -49,10 +51,10 @@ public class Account {
             role = Role.EMPLOYEE;
         }
 
-//        if (password == null) {
-//            password = new BCryptPasswordEncoder().encode("123456");
-//        } else {
-//            password = new BCryptPasswordEncoder().encode(password);
-//        }
+        if (password == null) {
+            password = new BCryptPasswordEncoder().encode("123456");
+        } else {
+            password = new BCryptPasswordEncoder().encode(password);
+        }
     }
 }
